@@ -1,5 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { AppContainer } from 'react-hot-loader'
+import TodoList from './TodoList';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <AppContainer>
+        <TodoList />
+    </AppContainer>, 
+    document.getElementById('root')
+);
+if (module.hot) {
+    module.hot.accept('./TodoList', () => {
+        const NewHello = require('./TodoList').default;
+        ReactDOM.render(
+            <AppContainer>
+                <NewHello />
+            </AppContainer>,
+            document.getElementById('root')
+        )
+    })
+}
